@@ -55,7 +55,8 @@ function MovieListPage() {
           </p>
           <h1>Animated films for slow eyes.</h1>
           <p>
-            Browse, add, edit, and remove the films in the 24frames collection
+            Browse, add, edit, and remove the films in the 24frames collection.
+            Every record is served from a JSON Server REST API.
           </p>
         </div>
         <Link className="primary-button" to="/movies/new">
@@ -82,6 +83,28 @@ function MovieListPage() {
           Refresh API
         </button>
       </section>
+
+      {status === 'loading' && (
+        <StateMessage
+          title="Loading the archive..."
+          message="The projector is warming up the API records."
+        />
+      )}
+
+      {status === 'failed' && (
+        <StateMessage title="API error" message={error} tone="danger" />
+      )}
+
+      {mutationError && (
+        <StateMessage title="Action failed" message={mutationError} tone="danger" />
+      )}
+
+      {status === 'succeeded' && filteredMovies.length === 0 && (
+        <StateMessage
+          title="No films found"
+          message="Try a different search or add a new animated film."
+        />
+      )}
 
       {status === 'succeeded' && filteredMovies.length > 0 && (
         <section className="movie-grid" aria-label="Movie product list">

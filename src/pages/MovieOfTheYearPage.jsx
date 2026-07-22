@@ -1,42 +1,144 @@
-import { Award, Crown, Sparkles, Trophy } from 'lucide-react'
+import {
+  Award,
+  BadgeCheck,
+  BarChart3,
+  Crown,
+  Eye,
+  Palette,
+  Sparkles,
+  Star,
+  Ticket,
+  Trophy,
+} from 'lucide-react'
 import { designTextureAssets } from '../data/movieAssets'
 
-const awardNotes = [
-  'Movie of the Year 2026',
-  'Best Animated Landing Concept',
-  'Audience Choice for Visual Poetry',
+const awardStats = [
+  {
+    icon: <Star size={18} aria-hidden="true" />,
+    label: 'jury score',
+    value: '98.7',
+    meta: 'highest rated frame',
+  },
+  {
+    icon: <Eye size={18} aria-hidden="true" />,
+    label: 'festival views',
+    value: '42K',
+    meta: 'opening week',
+  },
+  {
+    icon: <Ticket size={18} aria-hidden="true" />,
+    label: 'owner pick',
+    value: '#01',
+    meta: 'locked selection',
+  },
+]
+
+const nominees = [
+  ['01', 'The Shadow in the Woods', 'Movie of the Year'],
+  ['02', 'My Family and the Wolf', 'Best Emotional Frame'],
+  ['03', 'Lightfall', 'Best Art Direction'],
+  ['04', 'Pimo & Rex', 'Audience Favorite'],
+]
+
+const galleryLabels = [
+  'official award backdrop',
+  'winner concept valley',
+  'ceremony key visual',
+  'after-hours spotlight frame',
 ]
 
 function MovieOfTheYearPage() {
   return (
     <main className="page-shell awards-page">
-      <section className="awards-hero">
-        <div>
+      <section className="owner-awards-hero">
+        <div className="owner-awards-copy">
           <p className="eyebrow">
             <Trophy size={17} aria-hidden="true" />
-            annual selection
+            owner selection room
           </p>
-          <h1>Movie of the Year.</h1>
+          <h1>The Owner&apos;s Cut.</h1>
           <p>
-            A special 24frames exhibition for the landing artwork, festival
-            frames, and award-winning visual concepts behind the archive.
+            A private 24frames board for the yearly winner, award labels,
+            shortlist ranking, and the landing artworks behind the festival
+            identity.
           </p>
+
+          <div className="owner-award-tags" aria-label="Winner awards">
+            <span>
+              <Crown size={15} aria-hidden="true" />
+              Movie of the Year 2026
+            </span>
+            <span>
+              <Palette size={15} aria-hidden="true" />
+              Best Landing Concept
+            </span>
+            <span>
+              <Sparkles size={15} aria-hidden="true" />
+              Visual Poetry Prize
+            </span>
+          </div>
         </div>
 
-        <div className="award-medal" aria-label="Movie of the year badge">
-          <Crown size={34} aria-hidden="true" />
-          <strong>24F</strong>
-          <span>Grand Prize</span>
-        </div>
+        <article className="winner-spotlight">
+          <img
+            src="/940a3ce4de78fb799a36bf2a7a8261c3.jpg"
+            alt="The Shadow in the Woods winner poster"
+          />
+          <div className="winner-spotlight-copy">
+            <p className="eyebrow">
+              <BadgeCheck size={15} aria-hidden="true" />
+              grand winner
+            </p>
+            <h2>The Shadow in the Woods</h2>
+            <p>
+              A dark fairytale chosen for its atmosphere, handmade texture, and
+              the kind of silence that makes an animated frame feel alive.
+            </p>
+          </div>
+        </article>
       </section>
 
-      <section className="award-strip" aria-label="Award titles">
-        {awardNotes.map((note) => (
-          <article key={note}>
-            <Award size={18} aria-hidden="true" />
-            <span>{note}</span>
+      <section className="owner-stat-grid" aria-label="Owner award statistics">
+        {awardStats.map((stat) => (
+          <article key={stat.label}>
+            {stat.icon}
+            <span>{stat.label}</span>
+            <strong>{stat.value}</strong>
+            <p>{stat.meta}</p>
           </article>
         ))}
+      </section>
+
+      <section className="owner-board">
+        <article className="owner-verdict">
+          <p className="eyebrow">
+            <Award size={16} aria-hidden="true" />
+            final verdict
+          </p>
+          <h2>Approved for the 24frames front window.</h2>
+          <p>
+            The winner carries the darker, painterly mood of the site while
+            still feeling cinematic enough to headline the annual collection.
+          </p>
+        </article>
+
+        <article className="nominee-board">
+          <div className="nominee-board-heading">
+            <p className="eyebrow">
+              <BarChart3 size={16} aria-hidden="true" />
+              shortlist
+            </p>
+            <span>owner ranking</span>
+          </div>
+
+          {nominees.map(([rank, title, award]) => (
+            <div className="nominee-row" key={title}>
+              <strong>{rank}</strong>
+              <span>{title}</span>
+              <em>{award}</em>
+            </div>
+          ))}
+        </article>
       </section>
 
       <section className="year-gallery" aria-label="Movie of the year artwork">
@@ -46,13 +148,9 @@ function MovieOfTheYearPage() {
             <div>
               <p className="eyebrow">
                 <Sparkles size={15} aria-hidden="true" />
-                winner frame {index + 1}
+                frame {index + 1}
               </p>
-              <h2>
-                {index === 0
-                  ? 'Official festival backdrop'
-                  : 'Awarded concept frame'}
-              </h2>
+              <h2>{galleryLabels[index]}</h2>
             </div>
           </article>
         ))}
